@@ -1,16 +1,15 @@
 package goraml
 
-
 import (
 	"bufio"
 	"bytes"
 	"fmt"
 	"gopkg.in/yaml.v2"
+	"goraml/ramlTypes"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"goraml/ramlTypes"
 	"strings"
 )
 
@@ -32,8 +31,6 @@ func ParseRamlFile(ramlFile string) (*ramlTypes.API, error) {
 
 	// Do some pre-process jobs, like adding the include file's content into the raml file
 	preProcessedContents, err := PreProcess(rawContentBuffer, workingDirectory)
-
-	fmt.Println(string(preProcessedContents))
 
 	if err != nil {
 		return nil, fmt.Errorf("error while processing the raml file, error: %s", err.Error())

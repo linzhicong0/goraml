@@ -1,0 +1,25 @@
+[
+  {
+  "id": 1,
+  "title": "Buy some milk",
+  "status": "done"
+  },
+  {
+    "id": 2,
+    "title": "Return sweater",
+    "status": "overdue",
+    "dueInDays": -2
+  },
+  {
+    "id": 3,
+    "title": "Renew license",
+    "status": "not done",
+    "dueInDays": 1
+  },
+  {
+    "id": 4,
+    "title": "Join gym",
+    "status": "not done",
+    "dueInDays": 3
+  }
+]
