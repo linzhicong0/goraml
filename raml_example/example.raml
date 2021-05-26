@@ -2,6 +2,8 @@
 title: Notes Example API
 version: v2
 mediaType: application/json
+types:
+  note: !include noteType.raml
 documentation:
   title: Overview
   content: This is an example of a simple API for a "notes" service
@@ -22,6 +24,7 @@ documentation:
     description: Create a new note in the collection
     body:
       application/json:
+        type: note
         example: |
           { "title": "Return sweater", "dueInDays": -2 }
     headers:
