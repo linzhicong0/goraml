@@ -7,4 +7,5 @@ type Method struct {
 	Headers         map[string]Parameters       `yaml:"headers"`
 	Responses       map[HTTPStatusCode]Response `yaml:"responses"`
 	RequestBody     map[ContentType]RequestBody `yaml:"body"`
+	//RequestBody     map[ContentType]NameTyped `yaml:"body"`
 }

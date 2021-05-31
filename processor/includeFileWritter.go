@@ -14,7 +14,7 @@ import (
 
 const includeSymbol = "!include"
 
-// read all the content in the given file
+// ReadFileContent read all the content in the given file
 func ReadFileContent(filePath string) ([]byte, error) {
 	_, err := os.Stat(filePath)
 	if os.IsNotExist(err) {
@@ -78,16 +78,13 @@ type RamlWriter struct{}
 type JsonWriter struct{}
 
 func (r *RamlWriter) Write(lineText string, index int, buffer *bytes.Buffer, includedFilePath string) error {
-	// TODO: append the raml content into the main file
-
-
-	trimedType := strings.Trim(lineText[:index], " ")
-	startIndex := strings.Index(lineText, trimedType)
+	trimmedType := strings.Trim(lineText[:index], " ")
+	startIndex := strings.Index(lineText, trimmedType)
 
 	// To see if the key is type
 	// If not type, then treat it as normal
-	//write the key name and change one line and write the indent
-	if trimedType != "type:" {
+	// write the key name and change one line and write the indent
+	if trimmedType != "type:" {
 		buffer.WriteString(lineText[:index])
 		// Change line
 		buffer.WriteString("\n")
@@ -97,8 +94,6 @@ func (r *RamlWriter) Write(lineText string, index int, buffer *bytes.Buffer, inc
 
 	indentString := strings.Repeat(" ", startIndex)
 
-	// TODO: if this include file also include other file, need to do the preprocess first
-
 	// Get the raw content of the raml file
 	rawContent, err := ReadFileContent(includedFilePath)
 	if err != nil {
@@ -107,6 +102,9 @@ func (r *RamlWriter) Write(lineText string, index int, buffer *bytes.Buffer, inc
 
 	workingDirectory, _ := filepath.Split(includedFilePath)
 	rawContentBuffer := bytes.NewBuffer(rawContent)
+	// Do the preprocess for the included file
+	// If the included file also include other files
+	// then write the content into one file
 	includeFileContent, err := PreProcess(rawContentBuffer, workingDirectory)
 	if err != nil {
 		return err
